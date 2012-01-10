@@ -35,6 +35,7 @@ See `attributes/default.rb` for default values.
 
 * `node['splunk']['cookbook_name']` - The name of the directory in which the cookbook runs.
 
+* `node['splunk']['name_scheme']` - Sets the scheme, currently either *ec2* or *node_name* used for host entry. (templates/server/#{node['splunk']['server_config_folder]}/inputs.conf.erb)
 * `node['splunk']['indexer_name']` - The name to use for the forwarder outputs.conf defaultGroup. (templates/forwarder/outputs.conf.erb)
 * `node['splunk']['forwarder_home']` - The directory in which to install the Splunk Forwarder
 * `node['splunk']['server_home']` - The directory in which to install the Splunk Server
@@ -205,6 +206,16 @@ This will install or upgrade the *nix app:
 		local_templates         ["app.conf.erb","inputs.conf.erb"]
 		remove_dir_on_upgrade   "true"
 	end
+
+Libraries
+=========
+
+`splunk.rb`
+-----------
+
+**Chef::Splunk**
+
+Provides a host entry for a server node based on it's selected scheme and other attributes.
 
 License and Author
 ==================

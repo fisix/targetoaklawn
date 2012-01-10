@@ -4,6 +4,9 @@ default['splunk']['cookbook_name']                = "splunk"
 #indexer configuration attributes
 default['splunk']['indexer_name']                 = "splunk_indexers"
 
+#splunk node name scheme
+default[:splunk][:name_scheme]                    = "ec2"
+
 #directories
 default['splunk']['forwarder_home']               = "/opt/splunkforwarder"
 default['splunk']['server_home']                  = "/opt/splunk"

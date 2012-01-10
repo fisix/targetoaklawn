@@ -21,7 +21,9 @@
   splunk_cmd = "#{node['splunk']['server_home']}/bin/splunk"
   splunk_package_version = "splunk-#{node['splunk']['server_version']}-#{node['splunk']['server_build']}"
 
-  splunk_file = splunk_package_version + 
+  node[:splunk][:node_name] ||= Splunk.node_name(node)
+
+  splunk_file = splunk_package_version +
     case node['platform']
     when "centos","redhat","fedora"
       if node['kernel']['machine'] == "x86_64"
@@ -61,7 +63,7 @@
   end
 
   if node['splunk']['use_ssl']
-    
+
     directory "#{node['splunk']['server_home']}/ssl" do
       owner "root"
       group "root"
@@ -85,7 +87,7 @@
     end
 
   end
-  
+
   execute "#{splunk_cmd} start --accept-license --answer-yes" do
     not_if do
       `#{splunk_cmd} status | grep 'splunkd'`.chomp! =~ /^splunkd is running/
@@ -123,7 +125,7 @@
         notifies :restart, resources(:service => "splunk")
        end
   end
-  
+
   node['splunk']['dynamic_server_configs'].each do |cfg|
     template "#{node['splunk']['server_home']}/etc/system/local/#{cfg}.conf" do
      	source "server/#{node['splunk']['server_config_folder']}/#{cfg}.conf.erb"
@@ -133,8 +135,7 @@
       notifies :restart, resources(:service => "splunk")
      end
   end
- 
-  
+
   template "/etc/init.d/splunk" do
       source "server/splunk.erb"
       mode "0755"
