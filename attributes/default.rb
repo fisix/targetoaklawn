@@ -40,5 +40,10 @@ default['splunk']['server_role']               = "splunk-server"
 # Needed for distributed search.  This is assigned to the indexers.
 default['splunk']['indexer_role']              = "splunk-indexer"
 
-# limits.conf 
+# limits.conf
 default['splunk']['max_searches_per_cpu']      = 4
+
+default['splunk']['sso_mode'] = 'no'
+default['splunk']['trusted_ips'] = ['127.0.0.1']
+default['splunk']['remote_user'] = 'REMOTE_USER'
+default['splunk']['tools_proxy_on'] = 'False'

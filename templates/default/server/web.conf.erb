@@ -1,7 +1,7 @@
 [settings]
 startwebserver = <% if @dedicated_search_head == true -%>1<% else -%>0<% end -%>
 httpport = <%= node['splunk']['web_server_port'] %>
-enableSplunkWebSSL = <%= node['splunk']['use_ssl'] %>  
+enableSplunkWebSSL = <%= node['splunk']['use_ssl'] %>
 
 <% if node['splunk']['use_ssl'] -%>
 privKeyPath = <%= node['splunk']['server_home']%>/ssl/<%= node['splunk']['ssl_key']%>
@@ -13,3 +13,8 @@ minify_js = <%= node['splunk']['minify_js'] %>
 minify_css = <%= node['splunk']['minify_css'] %>
 
 root_endpoint = <%= node['splunk']['root_endpoint'] %>
+
+SSOMode = <%= node['splunk']['sso_mode'] %>
+trustedIP = <%= node['splunk']['trusted_ips'].join(',') %>
+remoteUser = <%= node['splunk']['remote_user'] %>
+tools.proxy.on = <%= node['splunk']['tools_proxy_on'] %>
