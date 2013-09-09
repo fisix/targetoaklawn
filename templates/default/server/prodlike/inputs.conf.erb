@@ -19,6 +19,6 @@ serverCert = <%= node['splunk']['server_home']%>/etc/auth/forwarders/<%= node['s
 [splunktcp-ssl:9997]
 compressed = true
 <% else -%>
-[splunktcp:9997]
+[splunktcp://9997]
 compressed = true
 <% end -%>
