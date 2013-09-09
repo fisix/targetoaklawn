@@ -181,7 +181,7 @@ end
 if dedicated_indexer == true || node['splunk']['distributed_search'] == false
   execute "Enabling Receiver Port #{node['splunk']['receiver_port']}" do 
     command "#{splunk_cmd} enable listen #{node['splunk']['receiver_port']} -auth #{node['splunk']['auth']}"
-     not_if "grep -r -E --include inputs.conf 'splunktcp(-ssl)?:(//)?(:)?#{node['splunk']['receiver_port']}' #{node['splunk']['server_home']}/etc"
+    not_if "grep -r -E --include inputs.conf 'splunktcp(-ssl)?:(//)?(:)?#{node['splunk']['receiver_port']}' #{node['splunk']['server_home']}/etc"
   end
 end
 
