@@ -177,8 +177,8 @@ execute "Changing Admin Password" do
   end
 end
 
-# Enable receiving ports only if we are a standalone installation or a dedicated_indexer
-if dedicated_indexer == true || node['splunk']['distributed_search'] == false
+# Enable receiving ports only if we are a standalone installation or a dedicated_indexer and we are not using ssl for forwarding
+if ( dedicated_indexer == true || node['splunk']['distributed_search'] == false ) && node['splunk']['ssl_forwarding'] == false
   execute "Enabling Receiver Port #{node['splunk']['receiver_port']}" do 
     command "#{splunk_cmd} enable listen #{node['splunk']['receiver_port']} -auth #{node['splunk']['auth']}"
     not_if "grep -r -E --include inputs.conf 'splunktcp(-ssl)?:(//)?(:)?#{node['splunk']['receiver_port']}' #{node['splunk']['server_home']}/etc"
